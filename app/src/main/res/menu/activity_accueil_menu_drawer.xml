@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/activity_main_drawer_home"
+            android:icon="@drawable/outline_home_black_24dp"
+            android:title="@string/home" />
+        <item
+            android:id="@+id/activity_main_drawer_add_depense"
+            android:icon="@drawable/icons8_argent"
+            android:title="Ajouter Depense" />
+        <item
+            android:id="@+id/activity_main_drawer_add_categorie_depense"
+            android:icon="@drawable/icons8_categories"
+            android:title="Ajouter Categorie" />
+
+    </group>
+
+    <item android:title="@string/text_my_datas">
+
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                android:id="@+id/activity_main_drawer_lister_depenses"
+                android:icon="@drawable/icons8_liste"
+                android:title="Lister Depenses" />
+                <item
+                    android:id="@+id/activity_main_drawer_lister_budget_mensuel"
+                    android:icon="@drawable/icons8_liste"
+                    android:title="Lister Budget Mensuel" />
+                <item
+                    android:id="@+id/activity_main_drawer_lister_budget_annuel"
+                    android:icon="@drawable/icons8_liste"
+                    android:title="Lister Budget Annuel" />
+
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="temporaire">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/activity_main_drawer_raz"
+                    android:title="RAZ" />
+
+            </group>
+        </menu>
+    </item>
+
+</menu>
