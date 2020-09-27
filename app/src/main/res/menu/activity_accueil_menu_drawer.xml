@@ -9,13 +9,13 @@
             android:icon="@drawable/outline_home_black_24dp"
             android:title="@string/home" />
         <item
-            android:id="@+id/activity_main_drawer_add_depense"
+            android:id="@+id/activity_main_drawer_add_lieu"
             android:icon="@drawable/icons8_argent"
-            android:title="Ajouter Depense" />
+            android:title="Ajouter Lieu" />
         <item
-            android:id="@+id/activity_main_drawer_add_categorie_depense"
+            android:id="@+id/activity_main_drawer_add_lieu_enregistre"
             android:icon="@drawable/icons8_categories"
-            android:title="Ajouter Categorie" />
+            android:title="Ajouter Lieu Enregistre" />
 
     </group>
 
@@ -28,14 +28,6 @@
                 android:id="@+id/activity_main_drawer_lister_depenses"
                 android:icon="@drawable/icons8_liste"
                 android:title="Lister Depenses" />
-                <item
-                    android:id="@+id/activity_main_drawer_lister_budget_mensuel"
-                    android:icon="@drawable/icons8_liste"
-                    android:title="Lister Budget Mensuel" />
-                <item
-                    android:id="@+id/activity_main_drawer_lister_budget_annuel"
-                    android:icon="@drawable/icons8_liste"
-                    android:title="Lister Budget Annuel" />
 
             </group>
         </menu>

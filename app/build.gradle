@@ -6,7 +6,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.pouillos.viergeapp"
+        applicationId "com.pouillos.whereismycar"
         minSdkVersion 24
         targetSdkVersion 28
         versionCode 1
@@ -30,7 +30,7 @@ android {
 
 greendao {
     schemaVersion 1
-    daoPackage "com.pouillos.viergeapp.dao" // set package of generated classes
+    daoPackage "com.pouillos.whereismycar.dao" // set package of generated classes
 }
 
 dependencies {
