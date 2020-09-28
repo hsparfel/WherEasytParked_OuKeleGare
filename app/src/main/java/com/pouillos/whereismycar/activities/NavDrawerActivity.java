@@ -20,6 +20,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.pouillos.whereismycar.R;
 import com.pouillos.whereismycar.activities.ajouter.AjouterLieuActivity;
 import com.pouillos.whereismycar.activities.ajouter.AjouterLieuEnregistreActivity;
+import com.pouillos.whereismycar.dao.AppOpenHelper;
 import com.pouillos.whereismycar.dao.DaoMaster;
 import com.pouillos.whereismycar.dao.DaoSession;
 import com.pouillos.whereismycar.dao.LieuDao;
@@ -190,7 +191,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
     }
 
     public void initialiserDao() {
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "my_depenses_db", null);
+        AppOpenHelper helper = new AppOpenHelper(this, "where_is_my_car_db", null);
         Database db = helper.getWritableDb();
         DaoMaster daoMaster = new DaoMaster(db);
         daoSession = daoMaster.newSession();
