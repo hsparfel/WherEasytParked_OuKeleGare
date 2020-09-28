@@ -11,6 +11,6 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/pill" />
+        app:srcCompat="@drawable/icons8_garage" />
 
 </LinearLayout>

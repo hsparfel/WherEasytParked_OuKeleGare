@@ -46,18 +46,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabAddLieu"
-            style="@style/Widget.MaterialComponents.FloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
 
-            android:layout_margin="16dip"
-
-            app:backgroundTint="@color/colorPrimary"
-            app:srcCompat="@drawable/outline_add_black_24dp"
-            app:tint="@android:color/white" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/listLieuEnregistre"
@@ -79,24 +68,6 @@
                 android:hint="Lieu Enregistre"
                 android:inputType="none" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutDate"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="240dip"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:hint="Date"
-
-            app:errorEnabled="true"
-            app:startIconDrawable="@drawable/icons8_longitude">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -124,14 +95,27 @@
             android:layout_gravity="center_horizontal"
             android:hint="Detail"
             app:errorEnabled="true"
-            app:startIconDrawable="@drawable/outline_place_black_24dp">
+            app:startIconDrawable="@drawable/icons8_note">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false" />
+                />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabSaveLieu"
+            style="@style/Widget.MaterialComponents.FloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+
+            android:layout_margin="16dip"
+
+            app:backgroundTint="@color/colorPrimary"
+            app:srcCompat="@drawable/outline_save_black_24dp"
+            app:tint="@android:color/white" />
 
     </LinearLayout>
 

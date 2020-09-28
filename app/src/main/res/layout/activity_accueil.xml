@@ -44,24 +44,12 @@
 
         <EditText
             android:layout_width="0dp"
-            android:layout_height="0dp" />
+            android:layout_height="30dp" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabAddLieu"
-            style="@style/Widget.MaterialComponents.FloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-
-            android:layout_margin="16dip"
-
-            app:backgroundTint="@color/colorPrimary"
-            app:srcCompat="@drawable/outline_add_black_24dp"
-            app:tint="@android:color/white" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/listLieuEnregistre"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -71,11 +59,12 @@
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/outline_local_parking_black_18dp">
 
-            <AutoCompleteTextView
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/selectLieuEnregistre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"
+
+                android:enabled="false"
                 android:hint="Lieu Enregistre"
                 android:inputType="none" />
 
@@ -90,7 +79,7 @@
             android:hint="Date"
 
             app:errorEnabled="true"
-            app:startIconDrawable="@drawable/icons8_longitude">
+            app:startIconDrawable="@drawable/icons8_calendrier">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textDate"
@@ -124,7 +113,7 @@
             android:layout_gravity="center_horizontal"
             android:hint="Detail"
             app:errorEnabled="true"
-            app:startIconDrawable="@drawable/outline_place_black_24dp">
+            app:startIconDrawable="@drawable/icons8_note">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textDetail"
@@ -132,6 +121,39 @@
                 android:layout_height="wrap_content"
                 android:enabled="false" />
         </com.google.android.material.textfield.TextInputLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabGoogleMap"
+                style="@style/Widget.MaterialComponents.FloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:layout_margin="10dip"
+                app:backgroundTint="@color/colorPrimary"
+                app:tint="@android:color/white"
+                app:fabSize="mini"
+                app:srcCompat="@drawable/outline_place_black_24dp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabWaze"
+                style="@style/Widget.MaterialComponents.FloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:layout_margin="10dip"
+                app:backgroundTint="@color/colorPrimary"
+                app:tint="@android:color/white"
+                app:fabSize="mini"
+                app:srcCompat="@drawable/outline_navigation_black_24dp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

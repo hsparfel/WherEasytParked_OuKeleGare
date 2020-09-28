@@ -3,17 +3,11 @@ package com.pouillos.whereismycar.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.DatePicker;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,30 +15,21 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.pouillos.whereismycar.R;
-
+import com.pouillos.whereismycar.activities.ajouter.AjouterLieuActivity;
+import com.pouillos.whereismycar.activities.ajouter.AjouterLieuEnregistreActivity;
 import com.pouillos.whereismycar.dao.DaoMaster;
 import com.pouillos.whereismycar.dao.DaoSession;
 import com.pouillos.whereismycar.dao.LieuDao;
 import com.pouillos.whereismycar.dao.LieuEnregistreDao;
-import com.pouillos.whereismycar.fragments.DatePickerFragment;
-import com.pouillos.whereismycar.utils.DateUtils;
 
 import org.greenrobot.greendao.database.Database;
 
-import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executor;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import icepick.Icepick;
 
@@ -103,29 +88,15 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                 break;
 
             case R.id.activity_main_drawer_add_lieu:
-                Toast.makeText(this, "à implementer", Toast.LENGTH_LONG).show();
-               // myProfilActivity = new Intent(NavDrawerActivity.this, AfficherDepenseActivity.class);
-               // startActivity(myProfilActivity);
-                break;
-
-            case R.id.activity_main_drawer_lister_depenses:
-                Toast.makeText(this, "à implementer", Toast.LENGTH_LONG).show();
-
-                //  myProfilActivity = new Intent(NavDrawerActivity.this, AfficherListeDepenseActivity.class);
-               // startActivity(myProfilActivity);
+                myProfilActivity = new Intent(NavDrawerActivity.this, AjouterLieuActivity.class);
+                startActivity(myProfilActivity);
                 break;
 
             case R.id.activity_main_drawer_add_lieu_enregistre:
-                Toast.makeText(this, "à implementer", Toast.LENGTH_LONG).show();
-              //  myProfilActivity = new Intent(NavDrawerActivity.this, AjouterCategorieDepenseActivity.class);
-             //   startActivity(myProfilActivity);
+                myProfilActivity = new Intent(NavDrawerActivity.this, AjouterLieuEnregistreActivity.class);
+                startActivity(myProfilActivity);
                 break;
 
-            case R.id.activity_main_drawer_raz:
-                //Toast.makeText(this, "à implementer", Toast.LENGTH_LONG).show();
-                raz();
-                Toast.makeText(this, "RAZ done", Toast.LENGTH_LONG).show();
-                break;
             default:
                 break;
         }
@@ -135,23 +106,14 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         return true;
     }
 
-    protected void raz() {
-
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent myProfilActivity; // = new Intent(NavDrawerActivity.this, ChercherContactActivity.class);
-        //startActivity(myProfilActivity);
+        Intent myProfilActivity;
         //3 - Handle actions on menu items
         switch (item.getItemId()) {
-            /*case R.id.menu_activity_main_params:
-                Toast.makeText(this, "Il n'y a rien à paramétrer ici, passez votre chemin...", Toast.LENGTH_LONG).show();
-                return true;*/
-            case R.id.menu_activity_main_add_depense:
-                Toast.makeText(this, "Recherche indisponible, demandez plutôt l'avis de Google, c'est mieux et plus rapide.", Toast.LENGTH_LONG).show();
-             //   myProfilActivity = new Intent(NavDrawerActivity.this, AfficherDepenseActivity.class);
-              //  startActivity(myProfilActivity);
+            case R.id.menu_activity_main_add_lieu:
+                myProfilActivity = new Intent(NavDrawerActivity.this, AjouterLieuActivity.class);
+                startActivity(myProfilActivity);
                 return true;
 
             default:
@@ -190,46 +152,10 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         }
     }
 
-    public void revenirActivitePrecedente(String sharedName, String dataName, Long itemId) {
-        SharedPreferences preferences=getSharedPreferences(sharedName,MODE_PRIVATE);
-        SharedPreferences.Editor editor=preferences.edit();
-        editor.putLong(dataName,itemId);
-        editor.commit();
-        finish();
-    }
-
-    public void ouvrirActiviteSuivante(Context context, Class classe, String nomExtra, Long objetIdExtra, boolean bool) {
-        Intent intent = new Intent(context, classe);
-        intent.putExtra(nomExtra, objetIdExtra);
-        startActivity(intent);
-        if (bool) {
-            finish();
-        }
-    }
-
-    public void ouvrirActiviteSuivante(Context context, Class classe, String nomExtra, String objetExtra, String nomExtra2, Long objetIdExtra2, boolean bool) {
-        Intent intent = new Intent(context, classe);
-        intent.putExtra(nomExtra, objetExtra);
-        intent.putExtra(nomExtra2, objetIdExtra2);
-        startActivity(intent);
-        if (bool) {
-            finish();
-        }
-    }
-
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Icepick.saveInstanceState(this, outState);
-    }
-
-    protected Date ActualiserDate(Date date, String time){
-        Date dateActualisee = date;
-        int nbHour = Integer.parseInt(time.substring(0,2));
-        int nbMinute = Integer.parseInt(time.substring(3));
-        dateActualisee = DateUtils.ajouterHeure(dateActualisee,nbHour);
-        dateActualisee = DateUtils.ajouterMinute(dateActualisee,nbMinute);
-        return dateActualisee;
     }
 
     protected <T> void buildDropdownMenu(List<T> listObj, Context context, AutoCompleteTextView textView) {
@@ -249,16 +175,6 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         return super.getMainExecutor();
     }
 
-    protected boolean isChecked(ChipGroup chipGroup) {
-        boolean bool;
-        if (chipGroup.getCheckedChipId() != -1) {
-            bool = true;
-        } else {
-            bool = false;
-        }
-        return bool;
-    }
-
     protected boolean isFilled(TextInputEditText textInputEditText){
         boolean bool;
         if (textInputEditText.length()>0) {
@@ -269,107 +185,8 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         return bool;
     }
 
-    protected boolean isFilled(AutoCompleteTextView textView){
-        boolean bool;
-        if (textView != null) {
-            if (!textView.getText().toString().equalsIgnoreCase("")) {
-                bool = true;
-            } else {
-                bool = false;
-            }
-        } else {
-            bool = false;
-        }
-        return bool;
-    }
-
-    protected boolean isFilled(Object object){
-        boolean bool;
-        if (object!=null) {
-            bool = true;
-        } else {
-            bool = false;
-        }
-        return bool;
-    }
-
-    protected boolean isValidTel(TextView textView) {
-        if (!TextUtils.isEmpty(textView.getText()) && textView.getText().length() <10) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    protected boolean isValidZip(TextView textView) {
-        if (!TextUtils.isEmpty(textView.getText()) && textView.getText().length() <5) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    protected boolean isEmailAdress(String email){
-        Pattern p = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$");
-        Matcher m = p.matcher(email.toUpperCase());
-        return m.matches();
-    }
-    protected boolean isValidEmail(TextView textView) {
-        if (!TextUtils.isEmpty(textView.getText()) && !isEmailAdress(textView.getText().toString())) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    protected static float floatArrondi(float number, int decimalPlace) {
-        BigDecimal bd = new BigDecimal(number);
-        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
-        return bd.floatValue();
-    }
-
     public DaoSession getDaoSession() {
         return daoSession;
-    }
-
-    public void showDatePickerDialog(View v,TextInputEditText textView, boolean hasDateMin, boolean hasDateMax,Date dateMin,Date dateMax) {
-        DatePickerFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "buttonDate");
-        newFragment.setOnDateClickListener(new DatePickerFragment.onDateClickListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                if (hasDateMin) {
-                    datePicker.setMinDate(dateMin.getTime());
-                }
-                if (hasDateMax) {
-                    datePicker.setMaxDate(dateMax.getTime());
-                }
-
-                String dateJour = ""+datePicker.getDayOfMonth();
-                String dateMois = ""+(datePicker.getMonth()+1);
-                String dateAnnee = ""+datePicker.getYear();
-                if (datePicker.getDayOfMonth()<10) {
-                    dateJour = "0"+dateJour;
-                }
-                if (datePicker.getMonth()+1<10) {
-                    dateMois = "0"+dateMois;
-                }
-                String dateString = dateJour+"/"+dateMois+"/"+dateAnnee;
-
-                textView.setText(dateString);
-            }
-        });
-    }
-
-    public Date convertStringToDate(String dateString) {
-        DateFormat df = new SimpleDateFormat(getResources().getString(R.string.format_date));
-        Date dateToReturn = new Date();
-        try{
-                dateToReturn = df.parse(dateString);
-             }catch(ParseException e){
-                 System.out.println(getResources().getString(R.string.error));
-            }
-        return dateToReturn;
     }
 
     public void initialiserDao() {

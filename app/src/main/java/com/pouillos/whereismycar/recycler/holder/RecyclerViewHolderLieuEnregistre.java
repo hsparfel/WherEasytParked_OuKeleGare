@@ -26,17 +26,10 @@ public class RecyclerViewHolderLieuEnregistre extends RecyclerView.ViewHolder im
     public RecyclerViewHolderLieuEnregistre(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
-        //ButterKnife.bind(this);
     }
 
     public void updateWithLieuEnregistre(LieuEnregistre lieuEnregistre, RecyclerAdapterLieuEnregistre.Listener callback){
-       // double distance = ChercherContactActivity.calculerDistance(latitude,longitude,contact.getLatitude(),contact.getLongitude());
 
-//todo revoir l'affichage en limitan apres la virgule - FAIT OK
-       // NumberFormat formatter = new DecimalFormat("#0.0");
-       // System.out.println(formatter.format(4.0));
-
-      //  this.detail.setText(contact.getRaisonSocial() + " - " + formatter.format(distance)+ " km");
         this.lieuEnregistre.setText(lieuEnregistre.getNom());
         this.lieuEnregistre.setOnClickListener(this);
         //4 - Create a new weak Reference to our Listener

@@ -1,13 +1,16 @@
 package com.pouillos.whereismycar.activities;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -48,18 +51,11 @@ public class AccueilActivity extends NavDrawerActivity {
     @BindView(R.id.textView)
     TextView textView;
 
-    @BindView(R.id.fabAddLieu)
-    FloatingActionButton fabAddLieu;
-
     @BindView(R.id.my_progressBar)
     ProgressBar progressBar;
 
-    private LocationManager locationManager;
-
-    //double actualLatitude;
-    //double actualLongitude;
     @BindView(R.id.selectLieuEnregistre)
-    AutoCompleteTextView selectLieuEnregistre;
+    TextInputEditText selectLieuEnregistre;
     @BindView(R.id.listLieuEnregistre)
     TextInputLayout listLieuEnregistre;
 
@@ -77,6 +73,13 @@ public class AccueilActivity extends NavDrawerActivity {
     TextInputLayout layoutDetail;
 
     Lieu actualLieu;
+    List<LieuEnregistre> listeLieuEnregistre;
+
+    @BindView(R.id.fabGoogleMap)
+    FloatingActionButton fabGoogleMap;
+    @BindView(R.id.fabWaze)
+    FloatingActionButton fabWaze;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,14 +100,8 @@ public class AccueilActivity extends NavDrawerActivity {
         AccueilActivity.AsyncTaskRunnerBD runnerBD = new AccueilActivity.AsyncTaskRunnerBD();
         runnerBD.execute();
 
+        listeLieuEnregistre = lieuEnregistreDao.loadAll();
     }
-
-    @OnClick(R.id.fabAddLieu)
-    public void setFabAddLieuClick() {
-        ouvrirActiviteSuivante(this, AjouterLieuActivity.class,false);
-    }
-
-
 
     private class AsyncTaskRunnerBD extends AsyncTask<Void, Integer, Void> {
 
@@ -126,7 +123,7 @@ public class AccueilActivity extends NavDrawerActivity {
             } else {
                 masquerChampLieu();
             }
-            Toast.makeText(AccueilActivity.this, R.string.text_DB_created, Toast.LENGTH_LONG).show();
+            masquerChampLieu(actualLieu.getLieuEnregistreId() <= 1);
         }
 
         @RequiresApi(api = Build.VERSION_CODES.N)
@@ -147,11 +144,26 @@ public class AccueilActivity extends NavDrawerActivity {
         layoutDate.setVisibility(View.GONE);
         layoutAddresseGeo.setVisibility(View.GONE);
         layoutDetail.setVisibility(View.GONE);
+        fabGoogleMap.setVisibility(View.GONE);
+        fabWaze.setVisibility(View.GONE);
+    }
+
+    private void masquerChampLieu(boolean bool) {
+        if (bool) {
+            listLieuEnregistre.setVisibility(View.GONE);
+            if (textDetail.getText().toString().equalsIgnoreCase("/")) {
+                layoutDetail.setVisibility(View.GONE);
+            }
+        } else {
+            layoutAddresseGeo.setVisibility(View.GONE);
+            layoutDetail.setVisibility(View.GONE);
+            fabGoogleMap.setVisibility(View.GONE);
+            fabWaze.setVisibility(View.GONE);
+        }
     }
 
     private void recupLastLieu() {
         List<Lieu> listLieu = lieuDao.loadAll();
-
         if (listLieu.size()>0) {
             actualLieu = listLieu.get(listLieu.size()-1);
         }
@@ -159,6 +171,14 @@ public class AccueilActivity extends NavDrawerActivity {
 
     private void remplirChampLieu() {
         textAddresseGeo.setText(""+actualLieu.getAdresse());
+        textDate.setText(actualLieu.getDateString());
+        textDate.setText(DateUtils.ecrireDateHeureLettre(actualLieu.getDate()));
+        textDetail.setText((actualLieu.getDetail().equals("")) ? "/" : actualLieu.getDetail());
+        if (actualLieu.getLieuEnregistre() != null) {
+            selectLieuEnregistre.setText(actualLieu.getLieuEnregistre().getNom());
+        } else {
+            selectLieuEnregistre.setText(listeLieuEnregistre.get(0).getNom());
+        }
     }
 
     private void remplirBDLieuEnregistre() {
@@ -180,21 +200,55 @@ public class AccueilActivity extends NavDrawerActivity {
             lieuEnregistreDao.insert(lieuEnregistre);
 
             lieuEnregistre = new LieuEnregistre();
-            lieuEnregistre.setNom("Devant Donadey");
-            lieuEnregistreDao.insert(lieuEnregistre);
-
-            lieuEnregistre = new LieuEnregistre();
-            lieuEnregistre.setNom("Devant Parc Enfants");
-            lieuEnregistreDao.insert(lieuEnregistre);
-
-            lieuEnregistre = new LieuEnregistre();
             lieuEnregistre.setNom("Box");
             lieuEnregistreDao.insert(lieuEnregistre);
 
             lieuEnregistre = new LieuEnregistre();
             lieuEnregistre.setNom("Box Locatif");
             lieuEnregistreDao.insert(lieuEnregistre);
+
+            lieuEnregistre = new LieuEnregistre();
+            lieuEnregistre.setNom("Devant Donadey");
+            lieuEnregistreDao.insert(lieuEnregistre);
+
+            lieuEnregistre = new LieuEnregistre();
+            lieuEnregistre.setNom("Devant Parc Enfants");
+            lieuEnregistreDao.insert(lieuEnregistre);
         }
     }
 
+    @OnClick(R.id.fabGoogleMap)
+    public void fabGoogleMapClick() {
+        String url = "geo:";
+        String addr = "";
+        if (actualLieu.getLatitude() != 0 && actualLieu.getLongitude() != 0) {
+            url += actualLieu.getLatitude()+","+actualLieu.getLongitude();
+            url += "?q="+actualLieu.getLatitude()+","+actualLieu.getLongitude();
+        } else if (actualLieu.getAdresse() != null) {
+            url += "0,0?q=";
+            addr += Uri.parse(actualLieu.getAdresse());
+            url += addr;
+        }
+        Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( url ) );
+        intent.setPackage("com.google.android.apps.maps");
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
+    @OnClick(R.id.fabWaze)
+    public void fabWazeClick() {
+        try
+        {
+            String url = "https://waze.com/ul?q=";
+            url += actualLieu.getAdresse();
+            Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( url ) );
+            startActivity( intent );
+        }
+        catch ( ActivityNotFoundException ex  )
+        {
+            Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "market://details?id=com.waze" ) );
+            startActivity(intent);
+        }
+    }
 }

@@ -2,9 +2,7 @@ package com.pouillos.whereismycar.activities.ajouter;
 
 import android.os.Bundle;
 
-import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.pouillos.whereismycar.R;
@@ -57,7 +55,6 @@ public class AjouterLieuEnregistreActivity extends NavDrawerActivity {
 
     private boolean isFullRempli() {
         boolean bool = true;
-
         if (!isFilled(textName)) {
             bool = false;
             layoutName.setError("Obligatoire");

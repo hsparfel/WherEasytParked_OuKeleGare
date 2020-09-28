@@ -4,18 +4,11 @@
 
     <string name="home">Accueil</string>
 
-    <string name="format_date">dd/MM/yy</string>
-
-    <string name="error">error</string>
-
     <string name="text_name">Nom</string>
 
-
-    <string name="text_my_datas">Mes Données</string>
 
     <!-- Used in NavigationDrawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="text_DB_created">Creation BD terminée</string>
 
 </resources>

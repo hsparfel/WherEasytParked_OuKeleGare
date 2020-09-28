@@ -11,11 +11,11 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
@@ -26,7 +26,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.pouillos.whereismycar.R;
+import com.pouillos.whereismycar.activities.AccueilActivity;
 import com.pouillos.whereismycar.activities.NavDrawerActivity;
+import com.pouillos.whereismycar.entities.Lieu;
 import com.pouillos.whereismycar.entities.LieuEnregistre;
 import com.pouillos.whereismycar.utils.DateUtils;
 
@@ -39,35 +41,38 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import icepick.Icepick;
 
-public class AjouterLieuActivity extends NavDrawerActivity {
+public class AjouterLieuActivity extends NavDrawerActivity implements AdapterView.OnItemClickListener {
 
     @BindView(R.id.textView)
     TextView textView;
 
-    @BindView(R.id.fabAddLieu)
-    FloatingActionButton fabAddLieu;
+    @BindView(R.id.fabSaveLieu)
+    FloatingActionButton fabSaveLieu;
 
     @BindView(R.id.my_progressBar)
     ProgressBar progressBar;
-
 
     private LocationManager locationManager;
 
     double actualLatitude;
     double actualLongitude;
-   /* @BindView(R.id.textLatitude)
-    TextInputEditText textLatitude;
-    @BindView(R.id.layoutLatitude)
-    TextInputLayout layoutLatitude;
-    @BindView(R.id.textLongitude)
-    TextInputEditText textLongitude;
-    @BindView(R.id.layoutLongitude)
-    TextInputLayout layoutLongitude;*/
+
+    @BindView(R.id.selectLieuEnregistre)
+    AutoCompleteTextView selectLieuEnregistre;
+    @BindView(R.id.listLieuEnregistre)
+    TextInputLayout listLieuEnregistre;
 
     @BindView(R.id.textAddresseGeo)
     TextInputEditText textAddresseGeo;
     @BindView(R.id.layoutAddresseGeo)
     TextInputLayout layoutAddresseGeo;
+    @BindView(R.id.textDetail)
+    TextInputEditText textDetail;
+    @BindView(R.id.layoutDetail)
+    TextInputLayout layoutDetail;
+
+    List<LieuEnregistre> listeLieuEnregistre;
+    LieuEnregistre groupeLieuEnregistre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,8 +100,6 @@ public class AjouterLieuActivity extends NavDrawerActivity {
             if (location != null) {
                 actualLatitude = location.getLatitude();
                 actualLongitude = location.getLongitude();
-            //    textLatitude.setText("" + actualLatitude);
-              //  textLongitude.setText("" + actualLongitude);
                 convertirCoordonneesToAdresse();
             }
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 15000, 10, new LocationListener() {
@@ -115,13 +118,9 @@ public class AjouterLieuActivity extends NavDrawerActivity {
 
                 @Override
                 public void onLocationChanged(Location location) {
-                    Log.d("Location Changes", location.toString());
                     actualLatitude = location.getLatitude();
                     actualLongitude = location.getLongitude();
-                  //  textLatitude.setText("" + actualLatitude);
-                 //   textLongitude.setText("" + actualLongitude);
                     convertirCoordonneesToAdresse();
-                    Log.d("GPS", "Latitude " + location.getLatitude() + " et longitude " + location.getLongitude());
                 }
             });
 
@@ -129,12 +128,34 @@ public class AjouterLieuActivity extends NavDrawerActivity {
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
 
+        listeLieuEnregistre = lieuEnregistreDao.loadAll();
+        buildDropdownMenu(listeLieuEnregistre,AjouterLieuActivity.this,selectLieuEnregistre);
+
+        selectLieuEnregistre.setOnItemClickListener(this);
+        selectLieuEnregistre.setText("Non Defini",false);
 
     }
 
-    @OnClick(R.id.fabAddLieu)
-    public void setFabAddLieuClick() {
-        ouvrirActiviteSuivante(this, AjouterLieuEnregistreActivity.class,false);
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        groupeLieuEnregistre = listeLieuEnregistre.get(position);
+    }
+
+    @OnClick(R.id.fabSaveLieu)
+    public void setFabSaveLieuClick() {
+        Lieu lieu = new Lieu();
+        Date date = new Date();
+        lieu.setDate(date);
+        lieu.setDateString(DateUtils.ecrireDateHeure(date));
+        lieu.setAdresse(textAddresseGeo.getText().toString());
+        lieu.setLatitude(actualLatitude);
+        lieu.setLongitude(actualLongitude);
+        lieu.setDetail(textDetail.getText().toString());
+        if (groupeLieuEnregistre != null) {
+            lieu.setLieuEnregistre(groupeLieuEnregistre);
+        }
+        lieuDao.insert(lieu);
+        ouvrirActiviteSuivante(this, AccueilActivity.class,false);
     }
 
     public void convertirCoordonneesToAdresse() {
@@ -142,7 +163,6 @@ public class AjouterLieuActivity extends NavDrawerActivity {
         try {
             List<Address> listAddress = coder.getFromLocation(actualLatitude,actualLongitude,1);
             if (listAddress.size()>0) {
-                //textAddresseGeo.setText(listAddress.get(0).toString());
                 textAddresseGeo.setText(listAddress.get(0).getAddressLine(0));
             }
         } catch (IOException e) {
@@ -157,14 +177,12 @@ public class AjouterLieuActivity extends NavDrawerActivity {
         protected Void doInBackground(Void...voids) {
             publishProgress(0);
             publishProgress(10);
-            remplirBDLieuEnregistre();
             publishProgress(100);
             return null;
         }
 
         protected void onPostExecute(Void result) {
             progressBar.setVisibility(View.GONE);
-            Toast.makeText(AjouterLieuActivity.this, R.string.text_DB_created, Toast.LENGTH_LONG).show();
         }
 
         @RequiresApi(api = Build.VERSION_CODES.N)
@@ -173,40 +191,6 @@ public class AjouterLieuActivity extends NavDrawerActivity {
         }
     }
 
-    private void remplirBDLieuEnregistre() {
-        if (lieuEnregistreDao.count() == 0) {
-            LieuEnregistre lieuEnregistre = new LieuEnregistre();
-            lieuEnregistre.setNom("Non Defini");
-            lieuEnregistreDao.insert(lieuEnregistre);
 
-            lieuEnregistre = new LieuEnregistre();
-            lieuEnregistre.setNom("Parking Aerien");
-            lieuEnregistreDao.insert(lieuEnregistre);
-
-            lieuEnregistre = new LieuEnregistre();
-            lieuEnregistre.setNom("Rue Droite");
-            lieuEnregistreDao.insert(lieuEnregistre);
-
-            lieuEnregistre = new LieuEnregistre();
-            lieuEnregistre.setNom("Rue Gauche");
-            lieuEnregistreDao.insert(lieuEnregistre);
-
-            lieuEnregistre = new LieuEnregistre();
-            lieuEnregistre.setNom("Devant Donadey");
-            lieuEnregistreDao.insert(lieuEnregistre);
-
-            lieuEnregistre = new LieuEnregistre();
-            lieuEnregistre.setNom("Devant Parc Enfants");
-            lieuEnregistreDao.insert(lieuEnregistre);
-
-            lieuEnregistre = new LieuEnregistre();
-            lieuEnregistre.setNom("Box");
-            lieuEnregistreDao.insert(lieuEnregistre);
-
-            lieuEnregistre = new LieuEnregistre();
-            lieuEnregistre.setNom("Box Locatif");
-            lieuEnregistreDao.insert(lieuEnregistre);
-        }
-    }
 
 }
