@@ -202,6 +202,10 @@ public class AccueilActivity extends NavDrawerActivity {
             lieuEnregistreDao.insert(lieuEnregistre);
 
             lieuEnregistre = new LieuEnregistre();
+            lieuEnregistre.setNom("Rue Debut");
+            lieuEnregistreDao.insert(lieuEnregistre);
+
+            lieuEnregistre = new LieuEnregistre();
             lieuEnregistre.setNom("Box");
             lieuEnregistreDao.insert(lieuEnregistre);
 
