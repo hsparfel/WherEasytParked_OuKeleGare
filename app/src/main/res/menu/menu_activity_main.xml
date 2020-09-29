@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto">
-<item
+<!-- <item
     android:id="@+id/menu_activity_main_add_lieu"
     android:icon="@drawable/icons8_plus_white"
     app:showAsAction="ifRoom"
     android:title="Ajouter Lieu">
-</item>
+</item> -->
 
 </menu>

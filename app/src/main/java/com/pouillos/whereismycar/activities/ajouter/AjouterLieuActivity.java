@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
@@ -74,19 +75,32 @@ public class AjouterLieuActivity extends NavDrawerActivity implements AdapterVie
     List<LieuEnregistre> listeLieuEnregistre;
     LieuEnregistre groupeLieuEnregistre;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Icepick.restoreInstanceState(this, savedInstanceState);
         setContentView(R.layout.activity_ajouter_lieu);
         Stetho.initializeWithDefaults(this);
-
-        this.configureToolBar();
-        this.configureDrawerLayout();
-        this.configureNavigationView();
-
         ButterKnife.bind(this);
+        this.configureToolBar();
+        //this.configureDrawerLayout();
+        //this.configureNavigationView();
 
+        this.configureBottomView();
+
+
+        Menu bottomNavigationViewMenu = bottomNavigationView.getMenu();
+        // Uncheck the first menu item (the default item which is always checked by the support library is at position 0).
+        bottomNavigationViewMenu.findItem(R.id.bottom_navigation_home).setChecked(false);
+        bottomNavigationViewMenu.findItem(R.id.bottom_navigation_add_lieu).setChecked(true);
+        //findViewById(R.id.bottom_navigation_home).setSelected(false);
+        //bottomNavigationView.setSelectedItemId(R.id.bottom_navigation_add_lieu);
+
+
+
+        //bottomNavigationView.setSelectedItemId(R.id.bottom_navigation_add_lieu);
         textView.setText(DateUtils.ecrireDateLettre(new Date()));
 
         progressBar.setVisibility(View.VISIBLE);

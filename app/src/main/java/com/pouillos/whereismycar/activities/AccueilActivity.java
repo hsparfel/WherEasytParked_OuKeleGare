@@ -89,8 +89,9 @@ public class AccueilActivity extends NavDrawerActivity {
         Stetho.initializeWithDefaults(this);
 
         this.configureToolBar();
-        this.configureDrawerLayout();
-        this.configureNavigationView();
+        //this.configureDrawerLayout();
+        //this.configureNavigationView();
+        this.configureBottomView();
 
         ButterKnife.bind(this);
 
@@ -120,10 +121,11 @@ public class AccueilActivity extends NavDrawerActivity {
             if (actualLieu != null) {
                 afficherChampLieu();
                 remplirChampLieu();
+                masquerChampLieu(actualLieu.getLieuEnregistreId() <= 1);
             } else {
                 masquerChampLieu();
             }
-            masquerChampLieu(actualLieu.getLieuEnregistreId() <= 1);
+
         }
 
         @RequiresApi(api = Build.VERSION_CODES.N)

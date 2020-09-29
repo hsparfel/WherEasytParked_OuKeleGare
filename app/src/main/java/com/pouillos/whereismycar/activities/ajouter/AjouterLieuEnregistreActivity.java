@@ -1,6 +1,7 @@
 package com.pouillos.whereismycar.activities.ajouter;
 
 import android.os.Bundle;
+import android.view.Menu;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -36,8 +37,16 @@ public class AjouterLieuEnregistreActivity extends NavDrawerActivity {
         ButterKnife.bind(this);
 
         this.configureToolBar();
-        this.configureDrawerLayout();
-        this.configureNavigationView();
+        //this.configureDrawerLayout();
+        //this.configureNavigationView();
+        this.configureBottomView();
+        //bottomNavigationView.setSelectedItemId(R.id.bottom_navigation_add_lieu_enregistre);
+        Menu bottomNavigationViewMenu = bottomNavigationView.getMenu();
+        // Uncheck the first menu item (the default item which is always checked by the support library is at position 0).
+        bottomNavigationViewMenu.findItem(R.id.bottom_navigation_home).setChecked(false);
+        bottomNavigationViewMenu.findItem(R.id.bottom_navigation_add_lieu_enregistre).setChecked(true);
+        //findViewById(R.id.bottom_navigation_home).setSelected(false);
+        //bottomNavigationView.setSelectedItemId(R.id.bottom_navigation_add_lieu);
     }
 
 

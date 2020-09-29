@@ -9,12 +9,14 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.pouillos.whereismycar.R;
@@ -32,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 
+import butterknife.BindView;
 import icepick.Icepick;
 
 public class NavDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,11 +43,13 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
     protected Toolbar toolbar;
     protected DrawerLayout drawerLayout;
     protected NavigationView navigationView;
+    protected BottomNavigationView bottomNavigationView;
 
     protected DaoSession daoSession;
 
     protected LieuEnregistreDao lieuEnregistreDao;
     protected LieuDao lieuDao;
+
 
 
     @Override
@@ -75,6 +80,10 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
             super.onBackPressed();
         }
     }
+
+
+
+
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -111,7 +120,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent myProfilActivity;
         //3 - Handle actions on menu items
-        switch (item.getItemId()) {
+      /*  switch (item.getItemId()) {
             case R.id.menu_activity_main_add_lieu:
                 myProfilActivity = new Intent(NavDrawerActivity.this, AjouterLieuActivity.class);
                 startActivity(myProfilActivity);
@@ -119,11 +128,43 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
 
             default:
                 return super.onOptionsItemSelected(item);
-        }
+        }*/
+      return true;
     }
     // ---------------------
     // CONFIGURATION
     // ---------------------
+
+    // 2 - Configure BottomNavigationView Listener
+    public void configureBottomView(){
+        this.bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                        switch (item.getItemId()) {
+
+                            case R.id.bottom_navigation_home:
+                                ouvrirActiviteSuivante(NavDrawerActivity.this, AccueilActivity.class, true);
+                                break;
+                            case R.id.bottom_navigation_add_lieu:
+                                ouvrirActiviteSuivante(NavDrawerActivity.this, AjouterLieuActivity.class, true);
+                                break;
+                            case R.id.bottom_navigation_add_lieu_enregistre:
+                                ouvrirActiviteSuivante(NavDrawerActivity.this, AjouterLieuEnregistreActivity.class, true);
+                                break;
+                        }
+                        return true;
+                    }
+                });
+        //bottomNavigationView.setSelectedItemId(R.id.bottom_navigation_add_lieu);
+        //  bottomNavigationView.setOnNavigationItemSelectedListener(item -> updateMainFragment(item.getItemId()));
+    }
+
+
+
+
 
     // 1 - Configure Toolbar
     public void configureToolBar() {
@@ -132,18 +173,18 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
     }
 
     // 2 - Configure Drawer Layout
-    public void configureDrawerLayout() {
+   /* public void configureDrawerLayout() {
         this.drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-    }
+    }*/
 
     // 3 - Configure NavigationView
-    public void configureNavigationView() {
-        this.navigationView = (NavigationView) findViewById(R.id.activity_main_nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-    }
+    //public void configureNavigationView() {
+     //   this.navigationView = (NavigationView) findViewById(R.id.activity_main_nav_view);
+     //   navigationView.setNavigationItemSelectedListener(this);
+   // }
 
     public void ouvrirActiviteSuivante(Context context, Class classe, boolean bool) {
         Intent intent = new Intent(context, classe);
