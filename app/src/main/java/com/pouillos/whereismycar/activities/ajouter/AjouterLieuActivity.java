@@ -85,22 +85,14 @@ public class AjouterLieuActivity extends NavDrawerActivity implements AdapterVie
         Stetho.initializeWithDefaults(this);
         ButterKnife.bind(this);
         this.configureToolBar();
-        //this.configureDrawerLayout();
-        //this.configureNavigationView();
 
         this.configureBottomView();
 
 
         Menu bottomNavigationViewMenu = bottomNavigationView.getMenu();
-        // Uncheck the first menu item (the default item which is always checked by the support library is at position 0).
         bottomNavigationViewMenu.findItem(R.id.bottom_navigation_home).setChecked(false);
         bottomNavigationViewMenu.findItem(R.id.bottom_navigation_add_lieu).setChecked(true);
-        //findViewById(R.id.bottom_navigation_home).setSelected(false);
-        //bottomNavigationView.setSelectedItemId(R.id.bottom_navigation_add_lieu);
 
-
-
-        //bottomNavigationView.setSelectedItemId(R.id.bottom_navigation_add_lieu);
         textView.setText(DateUtils.ecrireDateLettre(new Date()));
 
         progressBar.setVisibility(View.VISIBLE);
@@ -204,7 +196,4 @@ public class AjouterLieuActivity extends NavDrawerActivity implements AdapterVie
             progressBar.setProgress(integer[0],true);
         }
     }
-
-
-
 }

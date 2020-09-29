@@ -89,8 +89,6 @@ public class AccueilActivity extends NavDrawerActivity {
         Stetho.initializeWithDefaults(this);
 
         this.configureToolBar();
-        //this.configureDrawerLayout();
-        //this.configureNavigationView();
         this.configureBottomView();
 
         ButterKnife.bind(this);

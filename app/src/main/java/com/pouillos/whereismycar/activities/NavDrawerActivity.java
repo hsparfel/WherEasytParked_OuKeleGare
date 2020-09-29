@@ -37,7 +37,7 @@ import java.util.concurrent.Executor;
 import butterknife.BindView;
 import icepick.Icepick;
 
-public class NavDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class NavDrawerActivity extends AppCompatActivity {
     //FOR DESIGN
 
     protected Toolbar toolbar;
@@ -67,7 +67,6 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
     public boolean onCreateOptionsMenu(Menu menu) {
         //2 - Inflate the menu and add it to the Toolbar
         getMenuInflater().inflate(R.menu.menu_activity_main, menu);
-        //getMenuInflater().inflate(R.menu.menu_add_item_to_db, menu);
         return true;
     }
 
@@ -81,54 +80,10 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
         }
     }
 
-
-
-
-
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-
-        // 4 - Handle Navigation Item Click
-        int id = item.getItemId();
-        Intent myProfilActivity;
-
-        switch (id) {
-            case R.id.activity_main_drawer_home:
-                ouvrirActiviteSuivante(NavDrawerActivity.this, AccueilActivity.class,true);
-                break;
-
-            case R.id.activity_main_drawer_add_lieu:
-                myProfilActivity = new Intent(NavDrawerActivity.this, AjouterLieuActivity.class);
-                startActivity(myProfilActivity);
-                break;
-
-            case R.id.activity_main_drawer_add_lieu_enregistre:
-                myProfilActivity = new Intent(NavDrawerActivity.this, AjouterLieuEnregistreActivity.class);
-                startActivity(myProfilActivity);
-                break;
-
-            default:
-                break;
-        }
-
-        this.drawerLayout.closeDrawer(GravityCompat.START);
-
-        return true;
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent myProfilActivity;
         //3 - Handle actions on menu items
-      /*  switch (item.getItemId()) {
-            case R.id.menu_activity_main_add_lieu:
-                myProfilActivity = new Intent(NavDrawerActivity.this, AjouterLieuActivity.class);
-                startActivity(myProfilActivity);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }*/
       return true;
     }
     // ---------------------
@@ -158,33 +113,13 @@ public class NavDrawerActivity extends AppCompatActivity implements NavigationVi
                         return true;
                     }
                 });
-        //bottomNavigationView.setSelectedItemId(R.id.bottom_navigation_add_lieu);
-        //  bottomNavigationView.setOnNavigationItemSelectedListener(item -> updateMainFragment(item.getItemId()));
     }
-
-
-
-
 
     // 1 - Configure Toolbar
     public void configureToolBar() {
         this.toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
         setSupportActionBar(toolbar);
     }
-
-    // 2 - Configure Drawer Layout
-   /* public void configureDrawerLayout() {
-        this.drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-    }*/
-
-    // 3 - Configure NavigationView
-    //public void configureNavigationView() {
-     //   this.navigationView = (NavigationView) findViewById(R.id.activity_main_nav_view);
-     //   navigationView.setNavigationItemSelectedListener(this);
-   // }
 
     public void ouvrirActiviteSuivante(Context context, Class classe, boolean bool) {
         Intent intent = new Intent(context, classe);
