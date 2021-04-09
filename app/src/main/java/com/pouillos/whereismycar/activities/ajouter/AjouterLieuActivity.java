@@ -49,6 +49,8 @@ public class AjouterLieuActivity extends NavDrawerActivity implements AdapterVie
 
     @BindView(R.id.fabSaveLieu)
     FloatingActionButton fabSaveLieu;
+    @BindView(R.id.fabDeleteLieu)
+    FloatingActionButton fabDeleteLieu;
 
     @BindView(R.id.my_progressBar)
     ProgressBar progressBar;
@@ -145,6 +147,15 @@ public class AjouterLieuActivity extends NavDrawerActivity implements AdapterVie
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         groupeLieuEnregistre = listeLieuEnregistre.get(position);
+        if (position == 0) {
+            fabDeleteLieu.hide();
+            layoutAddresseGeo.setVisibility(View.VISIBLE);
+            layoutDetail.setVisibility(View.VISIBLE);
+        } else {
+            fabDeleteLieu.show();
+            layoutAddresseGeo.setVisibility(View.INVISIBLE);
+            layoutDetail.setVisibility(View.INVISIBLE);
+        }
     }
 
     @OnClick(R.id.fabSaveLieu)
@@ -162,6 +173,16 @@ public class AjouterLieuActivity extends NavDrawerActivity implements AdapterVie
         }
         lieuDao.insert(lieu);
         ouvrirActiviteSuivante(this, AccueilActivity.class,false);
+    }
+
+    @OnClick(R.id.fabDeleteLieu)
+    public void setFabDeleteLieuClick() {
+        LieuEnregistre lieu = new LieuEnregistre();
+        if (groupeLieuEnregistre != null) {
+            lieu = lieuEnregistreDao.load(groupeLieuEnregistre.getId());
+        }
+        lieuEnregistreDao.delete(lieu);
+        ouvrirActiviteSuivante(this, AjouterLieuActivity.class,false);
     }
 
     public void convertirCoordonneesToAdresse() {

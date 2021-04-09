@@ -116,11 +116,27 @@
             app:srcCompat="@drawable/outline_save_black_24dp"
             app:tint="@android:color/white" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabDeleteLieu"
+            style="@style/Widget.MaterialComponents.FloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+
+            android:layout_margin="70dip"
+
+
+            android:visibility="gone"
+            app:backgroundTint="@color/colorPrimary"
+            app:srcCompat="@drawable/outline_delete_black_24dp"
+            app:tint="@android:color/white" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="bottom">
+
+
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
