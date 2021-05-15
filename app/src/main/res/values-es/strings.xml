@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WherEasytParked</string>
+    <string name="home">Principal</string>
+    <string name="text_name">Nombre</string>
+    <string name="lieu_enregistre">Ubicación Guardada</string>
+    <string name="adresse">Dirección</string>
+    <string name="detail">Complemento</string>
+    <string name="date">Fecha</string>
+    <string name="a_preciser">A Precisar</string>
+    <string name="obligatoire">Obligatorio</string>
+    <string name="new_emplacement">Guardar una Nueva Ubicación</string>
+    <string name="emplacement_actuel">Guardar Ubicación Actual</string>
+    <string name="add_lieu">+ Ubicación</string>
+    <string name="add_lieu_enregistre">+ Ubicación Guardada</string>
+    <string name="aucun_emplacement">Sin Ubicación Guardada</string>
+    <string name="monday">Lunes</string>
+    <string name="tuesday">Martes</string>
+    <string name="wednesday">Miércoles</string>
+    <string name="thursday">Jueves</string>
+    <string name="friday">Viernes</string>
+    <string name="saturday">Sábado</string>
+    <string name="sunday">Domingo</string>
+    <string name="january">Enero</string>
+    <string name="february">Febrero</string>
+    <string name="march">Marcha</string>
+    <string name="april">Abril</string>
+    <string name="may">Mayo</string>
+    <string name="june">Junio</string>
+    <string name="july">Julio</string>
+    <string name="august">Agosto</string>
+    <string name="september">Septiembre</string>
+    <string name="october">Octubre</string>
+    <string name="november">Noviembre</string>
+    <string name="december">Diciembre</string>
+</resources>

@@ -9,14 +9,12 @@
     tools:openDrawer="start"
     tools:context=".activities.AccueilActivity">
 
-    <!-- 1 | MainActivity RootView -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
 
-        <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/activity_main_toolbar"
             android:layout_width="match_parent"
@@ -24,62 +22,15 @@
             android:background="?attr/colorPrimary"
             app:theme="@style/ToolBarStyle"/>
 
-        <ProgressBar
-            android:id="@+id/my_progressBar"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:indeterminate="false"
-            android:visibility="gone"
-            android:max="100"
-            android:progress="0"
-            />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal" />
-
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="30dp" />
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/listLieuEnregistre"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-
-            android:minWidth="240dip"
-
-            app:errorEnabled="true"
-            app:startIconDrawable="@drawable/outline_local_parking_black_18dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/selectLieuEnregistre"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:enabled="false"
-                android:hint="Lieu Enregistre"
-                android:inputType="none" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutDate"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="240dip"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:hint="Date"
-
+            android:hint="@string/date"
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/icons8_calendrier">
-
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textDate"
                 android:layout_width="match_parent"
@@ -88,15 +39,33 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/listLieuEnregistre"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:minWidth="240dip"
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/outline_local_parking_black_18dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/selectLieuEnregistre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="@string/lieu_enregistre"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layoutAddresseGeo"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="240dip"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:hint="Adresse"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+                android:hint="@string/adresse"
                 app:errorEnabled="true"
                 app:startIconDrawable="@drawable/outline_place_black_24dp">
-
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/textAddresseGeo"
                     android:layout_width="match_parent"
@@ -107,81 +76,69 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutDetail"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="240dip"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:hint="Detail"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:hint="@string/detail"
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/icons8_note">
-
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false" />
         </com.google.android.material.textfield.TextInputLayout>
-
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
-
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fabGoogleMap"
                 style="@style/Widget.MaterialComponents.FloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
-                android:layout_margin="10dip"
+                android:layout_margin="10dp"
                 app:backgroundTint="@color/colorPrimary"
                 app:tint="@android:color/white"
                 app:fabSize="mini"
                 app:srcCompat="@drawable/outline_place_black_24dp" />
-
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fabWaze"
                 style="@style/Widget.MaterialComponents.FloatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
-                android:layout_margin="10dip"
+                android:layout_margin="10dp"
                 app:backgroundTint="@color/colorPrimary"
                 app:tint="@android:color/white"
                 app:fabSize="mini"
                 app:srcCompat="@drawable/outline_navigation_black_24dp" />
-
         </LinearLayout>
-
-
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="bottom">
-
+        android:gravity="bottom"
+        android:orientation="vertical">
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            app:adSize="LARGE_BANNER"
+            app:adUnitId="ca-app-pub-4063990686626392/2443435907"></com.google.android.gms.ads.AdView>
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:menu="@menu/bottom_navigation_menu" />
-
-
     </LinearLayout>
-<!-- 2 | NavigationView
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/activity_main_nav_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/activity_accueil_nav_header"
-        app:menu="@menu/activity_accueil_menu_drawer" />-->
-
-
-
 
 </androidx.drawerlayout.widget.DrawerLayout>

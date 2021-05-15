@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OuKeléGaré</string>
+    <string name="home">Accueil</string>
+    <string name="text_name">Nom</string>
+    <string name="lieu_enregistre">Emplacement Enregistré</string>
+    <string name="adresse">Adresse</string>
+    <string name="detail">Complément</string>
+    <string name="date">Date</string>
+    <string name="a_preciser">A Préciser</string>
+    <string name="obligatoire">Obligatoire</string>
+    <string name="new_emplacement">Enregistrer un Nouvel Emplacement</string>
+    <string name="emplacement_actuel">Enregistrer l\'Emplacement Actuel</string>
+    <string name="add_lieu">+ Emplac.</string>
+    <string name="add_lieu_enregistre">+ Emplac. Enr.</string>
+    <string name="aucun_emplacement">Aucun Emplacement Enregistré</string>
+    <string name="sunday">Dimanche</string>
+    <string name="monday">Lundi</string>
+    <string name="tuesday">Mardi</string>
+    <string name="wednesday">Mercredi</string>
+    <string name="thursday">Jeudi</string>
+    <string name="friday">Vendredi</string>
+    <string name="saturday">Samedi</string>
+    <string name="january">Janvier</string>
+    <string name="february">Fevrier</string>
+    <string name="march">Mars</string>
+    <string name="april">Avril</string>
+    <string name="may">Mai</string>
+    <string name="june">Juin</string>
+    <string name="july">Juillet</string>
+    <string name="august">Aout</string>
+    <string name="september">Septembre</string>
+    <string name="october">Octobre</string>
+    <string name="november">Novembre</string>
+    <string name="december">Decembre</string>
+</resources>

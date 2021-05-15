@@ -8,10 +8,10 @@
         android:id="@+id/bottom_navigation_add_lieu"
         android:enabled="true"
         android:icon="@drawable/icons8_garage2"
-        android:title="+ Lieu"/>
+        android:title="@string/add_lieu"/>
     <item
         android:id="@+id/bottom_navigation_add_lieu_enregistre"
         android:enabled="true"
         android:icon="@drawable/outline_local_parking_black_18dp"
-        android:title="+ Lieu Enregistre"/>
+        android:title="@string/add_lieu_enregistre"/>
 </menu>

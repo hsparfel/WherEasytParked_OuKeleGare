@@ -1,12 +1,39 @@
 <resources>
-    <string name="app_name">WhereIsMyCar</string>
+    <string name="app_name">WherEasytParked</string>
+    <string name="home">Home</string>
+    <string name="text_name">Name</string>
+    <string name="a_remplacer_suivant_page" translatable="false">a remplacer suivant page</string>
+    <string name="lieu_enregistre">Saved Location</string>
+    <string name="adresse">Address</string>
+    <string name="detail">Complement</string>
+    <string name="date">Date</string>
+    <string name="a_preciser">Specify</string>
+    <string name="ErrorGeo" translatable="false">Error - not found</string>
+    <string name="obligatoire">"Obligatory "</string>
+    <string name="new_emplacement">Save A New Location</string>
+    <string name="emplacement_actuel">Save Current Location</string>
+    <string name="add_lieu">+ Location</string>
+    <string name="add_lieu_enregistre">+ Saved Location</string>
+    <string name="aucun_emplacement">No Saved Location</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="january">January</string>
+    <string name="february">February</string>
+    <string name="march">March</string>
+    <string name="april">April</string>
+    <string name="may">May</string>
+    <string name="june">June</string>
+    <string name="july">July</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
+    <string name="october">October</string>
+    <string name="november">November</string>
+    <string name="december">December</string>
 
-
-    <string name="home">Accueil</string>
-
-    <string name="text_name">Nom</string>
-
-
-    <!-- Used in NavigationDrawer -->
 
 </resources>
